@@ -14,7 +14,8 @@ const userSchema = new Schema (
             required: true,
             unique: true,
             match: [
-                
+                /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                "Please use a valid email address", 
             ],
         },
         thoughts: [
@@ -38,7 +39,7 @@ const userSchema = new Schema (
     }
 );
 
-userSchema.virtuals("friendCount").get(function(){
+userSchema.virtual("friendCount").get(function(){
     return this.friends.length;
 });
 const User = model('User', userSchema);
